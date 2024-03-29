@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class SetOperations
+{
+    static void Main(string[] args)
+    {
+        // Define the sets by listing their elements
+        var A = new HashSet<int> { 1, 2, 3, 4, 5 };
+        var B = new HashSet<int> { 4, 5, 6 };
+        var C = new HashSet<int> { 6, 7, 8 };
+
+        // Perform the operation A\(B u C)
+        var BunionC = B.Union(C);
+        var AdiffBunionC = A.Except(BunionC);
+
+        // Perform the operation (A\B) n (A\C)
+        var AdiffB = A.Except(B);
+        var AdiffC = A.Except(C);
+        var AdiffBandAdiffC = AdiffB.Intersect(AdiffC);
+
+        // Output the sets and the results
+        Console.WriteLine("Set A: " + string.Join(", ", A));
+        Console.WriteLine("Set B: " + string.Join(", ", B));
+        Console.WriteLine("Set C: " + string.Join(", ", C));
+        Console.WriteLine();
+        Console.WriteLine("A\\(B u C): " + string.Join(", ", AdiffBunionC));
+        Console.WriteLine("(A\\B) n (A\\C): " + string.Join(", ", AdiffBandAdiffC));
+
+        // Check if A\(B u C) is equal to (A\B) n (A\C)
+        bool isValid = AdiffBunionC.SetEquals(AdiffBandAdiffC);
+        Console.WriteLine();
+        Console.WriteLine("Is A\\(B u C) = (A\\B) n (A\\C)? " + isValid);
+    }
+}
